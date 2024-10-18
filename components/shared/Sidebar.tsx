@@ -18,12 +18,12 @@ function Sidebar() {
     return (
         <>
             <section id="sidebar" className="custom-scrollbar leftsidebar">
-                <div className="flex w-full flex-1 flex-col gap-3 px-6">
+                <div className="flex w-full flex-1 flex-col gap-4 px-6">
                     {sidebarLinks.map((link) => {
                         const hasSubMenu = link.files || link.inquiry;
                         return (
                             <div key={link.label}>
-                                <div className="flex items-center hover:bg-gray-2 rounded-md p-0 transition-colors duration-200">
+                                <div className="flex items-center hover:bg-gray-2 rounded-md p-0 transition-colors duration-200 cursor-pointer">
                                     <Link
                                         href={link.route}
                                         className="leftsidebar_link flex-1"
@@ -55,7 +55,7 @@ function Sidebar() {
                                 {/* Sub-links */}
                                 {hasSubMenu && (
                                     <div
-                                        className={`pl-8 flex flex-col gap-4 transition-all duration-400 ease-in-out overflow-hidden ${openSubMenu === link.label ? 'max-h-40 opacity-100' : 'max-h-0 opacity-0'}`}
+                                        className={`pl-10 flex flex-col gap-4 pt-2 transition-all duration-400 ease-in-out overflow-hidden ${openSubMenu === link.label ? 'max-h-40 opacity-100' : 'max-h-0 opacity-0'}`}
                                     >
                                         {link.files && (
                                             <Link href={link.files.route} className="leftsidebar_sublink max-lg:hidden">
@@ -73,7 +73,7 @@ function Sidebar() {
                         );
                     })}
                 </div>
-                <div className="mt-10 px-6">
+                <div className="mt-10 px-6 max-lg:hidden">
                     <SignedIn>
                         <SignOutButton>
                             <div className="flex cusror-pointer gap-4 p-4 hover:bg-gray-2 rounded-md p-0 transition-colors duration-200 cursor-pointer">

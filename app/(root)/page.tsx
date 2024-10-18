@@ -1,9 +1,11 @@
 import { UserButton } from "@clerk/nextjs";
+import Charts from "@/components/charts/DashBoard";
+
 
 export default function Home() {
   return (
     <>
-      <h1 className="head-text text-left">DASHBOARD</h1>
+      <Charts />
     </>
   );
 }

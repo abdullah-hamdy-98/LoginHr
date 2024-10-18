@@ -28,8 +28,8 @@ export default function RootLayout({
           <Topbar />
           <main className="flex flex-row">
             <Sidebar />
-            <section className="main-container">
-              <div className="w-full max-w-4xl">
+            <section className="main-container bg-white">
+              <div className="w-full max-w-8xl">
                 {children}
               </div>
             </section>

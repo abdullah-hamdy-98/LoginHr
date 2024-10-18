@@ -1,7 +1,6 @@
 import { OrganizationSwitcher, SignedIn, SignOutButton } from "@clerk/nextjs"
 import Image from "next/image"
 import Link from "next/link"
-import { TEInput } from 'tw-elements-react';
 
 
 function Topbar() {
@@ -9,11 +8,11 @@ function Topbar() {
     return (
         <nav className="topbar">
             <Link href='/' className="flex item-center gap-1">
-                <Image src='/logo/TopLogo.png' alt="Site Logo" width={140} height={30} />
+                <Image src='/logo/TopLogo.png' alt="Site Logo" width={170} height={37} />
             </Link>
 
             <div className="flex item-center gap-1">
-                <div className="block">
+                <div className="pt-1 block md:hidden">
                     <SignedIn>
                         <SignOutButton>
                             <div className="flex cusror-pointer">
