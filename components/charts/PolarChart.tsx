@@ -8,7 +8,7 @@ ChartJS.register(PolarAreaController, RadialLinearScale, ArcElement, Tooltip, Le
 
 
 function PolarChart() {
-    const [chartWidth, setChartWidth] = useState('370px');
+    const [chartWidth, setChartWidth] = useState('600px');
 
     useEffect(() => {
         const handleResize = () => {
