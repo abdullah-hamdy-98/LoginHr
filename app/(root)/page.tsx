@@ -1,8 +1,10 @@
-import { UserButton } from "@clerk/nextjs";
 import Charts from "@/components/charts/DashBoard";
 
+export default async function Home() {
 
-export default function Home() {
+  // Set Delay 10s for (show Loader)
+  await new Promise((resolve) => setTimeout(resolve, 1000));
+
   return (
     <>
       <Charts />

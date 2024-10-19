@@ -180,7 +180,7 @@ module.exports = {
         "navbar-menu": "rgba(16, 16, 18, 0.6)",
         "dark-1": "#000000",
         "dark-2": "#f9f9f9",
-        "dark-3": "#101012",
+        "dark-3": "#e5e5e5",
         "dark-4": "#1F1F22",
         "light-1": "#FFFFFF",
         "light-2": "#f9f9f9",
@@ -188,7 +188,8 @@ module.exports = {
         "light-4": "#5C5C7B",
         "gray-1": "#697C89",
         "gray-2": "#f1f1f1",
-        "gray-3" : "#d4d4d4",
+        "gray-3": "#d4d4d4",
+        "blue-1": "#1e90ff",
         glassmorphism: "rgba(16, 16, 18, 0.60)",
       },
       boxShadow: {

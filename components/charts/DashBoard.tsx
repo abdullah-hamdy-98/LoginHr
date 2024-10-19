@@ -1,31 +1,32 @@
+"use client"
+import BarChart from "./BarChart";
+import PieChart from "./PieChart";
+import PolarChart from "./PolarChart";
+import HorizontalBar from "./HorizontalBar";
+
 function Charts() {
     return (
-        <main className="flex w-full flex-1 flex-col gap-8">
+        <main>
+            <div className="flex flex-col gap-5 text-center w-full mb-12">
+            <h2>Employee Performance</h2>
+                <HorizontalBar />
+            </div>
 
-        <div className="w-full rounded-[8px] border border-black p-8">
-            <h2 className="head-text pb-5">Recruitment and Staffing</h2>
-            <p className="body-text">Effective recruitment strategies ensure that the organization attracts, selects, and retains the best
-                talent. This involves creating clear job descriptions, utilizing various recruiting channels, and
-                conducting thorough interviews to assess candidates' qualifications.</p>
-        </div>
-    
-        <div className="w-full rounded-[8px] border border-black p-8">
-            <h2 className="head-text pb-5">Employee Development</h2>
-            <p className="body-text">Investing in employee development through training programs, workshops, and mentorship helps enhance
-                skills, boost morale, and increase job satisfaction. Organizations that prioritize development tend to
-                see improved performance and lower turnover rates.</p>
-        </div>
-    
-        <div className="w-full rounded-[8px] border border-black p-8">
-            <h2 className="head-text pb-5">Performance Management</h2>
-            <p className="body-text">Performance management is a continuous process of assessing employee performance, providing feedback, and
-                setting goals. Effective performance management helps align individual contributions with organizational
-                objectives, fostering a culture of accountability and growth.</p>
-        </div>
-    
-    </main>
-    
-    )
+            <div className="flex flex-1 gap-5 text-center max-lg:flex-col">
+                <div className="rounded-[8px] border border-dark-3 p-8">
+                    <h2>Hired Employees by month</h2>
+                    <BarChart />
+                    <h2 className="p-8">Employee Gender</h2>
+                    <PieChart />
+                </div>
+
+                <div className="rounded-[8px] border border-dark-3 p-8">
+                    <h2 className="pb-5">Employees by branch</h2>
+                    <PolarChart />
+                </div>
+            </div>
+        </main>
+    );
 }
 
 export default Charts;
