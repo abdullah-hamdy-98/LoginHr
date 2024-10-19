@@ -20,7 +20,7 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  
+
   return (
     <ClerkProvider>
       <html lang="en">
@@ -28,7 +28,7 @@ export default function RootLayout({
           <Topbar />
           <main className="flex flex-row">
             <Sidebar />
-            <section className="main-container bg-white">
+            <section className="main-container bg-light-3">
               <div className="w-full max-w-8xl">
                 {children}
               </div>

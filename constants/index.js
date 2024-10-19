@@ -6,15 +6,15 @@ export const sidebarLinks = [
     },
     {
         svgURL: "/svg/employees.svg",
-        route: "/",
+        route: "",
         label: "Employee Files",
         dowenarrow : "/svg/arrow_dowen.svg",
-        files: { label: 'Files', route: '/files' },
+        files: { label: 'Files', route: '/empFiles' },
         inquiry: { label: 'Inquiry', route: '/inquiry' }
     },
     {
         svgURL: "/svg/transaction.svg",
-        route: "/",
+        route: "",
         label: "Transactions",
         dowenarrow : "/svg/arrow_dowen.svg",
         files: { label: 'Create', route: '/create' },

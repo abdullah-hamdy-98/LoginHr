@@ -146,7 +146,7 @@ module.exports = {
         "12px",
         {
           lineHeight: "16px",
-          fontWeight: "500",
+          fontWeight: "400",
         },
       ],
       "subtle-semibold": [
@@ -175,7 +175,7 @@ module.exports = {
       colors: {
         "primary-500": "#877EFF",
         "secondary-500": "#FFB620",
-        blue: "#0095F6",
+        blue: "#0d76bc",
         "logout-btn": "#FF5A5A",
         "navbar-menu": "rgba(16, 16, 18, 0.6)",
         "dark-1": "#000000",
@@ -184,12 +184,18 @@ module.exports = {
         "dark-4": "#1F1F22",
         "light-1": "#FFFFFF",
         "light-2": "#f9f9f9",
-        "light-3": "#7878A3",
-        "light-4": "#5C5C7B",
+        "light-3": "#f9fafb",
+        "light-4": "#d5d5d5",
         "gray-1": "#697C89",
         "gray-2": "#f1f1f1",
         "gray-3": "#d4d4d4",
         "blue-1": "#1e90ff",
+        "red-1": "#ff0000",
+        "red-2": "#e60000",
+        "green-1": "#00d200",
+        "green-2": "#38ba1f",
+
+
         glassmorphism: "rgba(16, 16, 18, 0.60)",
       },
       boxShadow: {

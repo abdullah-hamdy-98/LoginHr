@@ -61,7 +61,7 @@
   }
 
   .topbar {
-    @apply fixed top-0 z-30 flex w-full items-center justify-between bg-light-2 px-6 py-3;
+    @apply fixed top-0 z-10 flex w-full items-center justify-between bg-light-3 px-6 py-3;
   }
 
   .bottombar {
@@ -77,12 +77,13 @@
   }
 
   .leftsidebar {
-    @apply sticky left-0 top-0 z-20 flex h-screen w-fit flex-col justify-between overflow-auto shadow-count-badge bg-dark-2 pb-5 pt-24 max-md:hidden;
+    @apply border border-r text-small-regular sticky left-0 top-0 z-20 flex h-screen w-fit flex-col justify-between overflow-auto bg-light-1 pb-5 pt-5 max-md:hidden;
   }
 
   .leftsidebar_link {
-    @apply relative flex justify-start gap-4 rounded-lg p-3;
+    @apply relative flex  justify-start gap-4 p-3 rounded-lg;
   }
+  /*  */
 
   .pagination {
     @apply mt-10 flex w-full items-center justify-center gap-5;
@@ -160,4 +161,33 @@
 
 .comment-form_btn {
   @apply rounded-3xl bg-primary-500 px-8 py-2 !text-small-regular text-light-1 max-xs:w-full !important;
+}
+
+/* Smooth transitions for submenu */
+.transition-max-height {
+  transition: max-height 0.3s ease-in-out, opacity 0.3s ease-in-out;
+}
+
+.leftsidebar {
+  transition: width 0.3s ease-in-out; /* Smooth transition for sidebar */
+}
+
+.leftsidebar.collapsed {
+  width: 60px; /* Adjust width for collapsed state */
+}
+
+/* Optional: Style for submenu links */
+.leftsidebar_sublink {
+  padding: 8px 16px; /* Padding for submenu links */
+  background-color: transparent; /* Default background color */
+  color: #4B5563; /* Text color equivalent to text-gray-600 */
+  border-right: 2px solid transparent; /* Default border */
+
+  transition: background-color 0.3s, color 0.3s, border-color 0.3s; /* Smooth transition for hover effects */
+}
+
+.leftsidebar_sublink:hover {
+  background-color: #F9FAFB;
+  color: #1F2937;
+  border-color: #1e90ff;
 }

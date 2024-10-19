@@ -7,11 +7,7 @@ function Topbar() {
     const isUserLoggedIn = true;
     return (
         <nav className="topbar">
-            <Link href='/' className="flex item-center gap-1">
-                <Image src='/logo/TopLogo.png' alt="Site Logo" width={170} height={37} />
-            </Link>
-
-            <div className="flex item-center gap-1">
+            <div className="flex ml-auto">
                 <div className="pt-1 block md:hidden">
                     <SignedIn>
                         <SignOutButton>
