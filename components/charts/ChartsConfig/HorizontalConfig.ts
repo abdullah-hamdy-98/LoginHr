@@ -1,4 +1,3 @@
-// ChartsConfig/HorizontalConfig.js
 import { ChartOptions, ChartData } from 'chart.js';
 
 export const data: ChartData<'bar', number[]> = {
@@ -27,12 +26,30 @@ export const options: ChartOptions<'bar'> = {
     elements: {
         bar: {
             borderWidth: 2,
+            borderRadius: 10
         },
     },
     responsive: true,
     plugins: {
         legend: {
             position: 'top',
+            labels: {
+                font: {
+                    size: 10,
+                },
+            },
+        },
+    },
+    scales: {
+        x: {
+            grid: {
+                display: false, 
+            },
+        },
+        y: {
+            grid: {
+                display: false, 
+            },
         },
     },
 };
