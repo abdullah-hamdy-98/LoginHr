@@ -1,10 +1,10 @@
 "use client";
 import { useState } from 'react';
-import HButtons from '@/components/forms/HButtons';
-import BasicInfo from '@/components/forms/BasicInfo';
-import JobStructer from '@/components/forms/JobStructer';
-import HierStructer from '@/components/forms/HierStructer';
-import GeoStructer from '@/components/forms/GeoStructer';
+import HButtons from '@/components/forms/empFiles/HButtons';
+import BasicInfo from '@/components/forms/empFiles/BasicInfo';
+import JobStructer from '@/components/forms/empFiles/JobStructer';
+import HierStructer from '@/components/forms/empFiles/HierStructer';
+import GeoStructer from '@/components/forms/empFiles/GeoStructer';
 
 function EmpFiles() {
     const [isJobStructerVisible, setIsJobStructerVisible] = useState(true);
