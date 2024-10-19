@@ -38,7 +38,7 @@ function EmpFiles() {
                         width="24px"
                         fill="#FFFFFF"
                         onClick={() => toggleVisibility(setIsJobStructerVisible)}
-                        className='bg-red-1 rounded-md ml-auto hover:bg-red-1 hover:scale-105 transition-transform transition-colors duration-300 ease-in-out cursor-pointer'
+                        className='bg-blue-1 rounded-md ml-auto hover:bg-red-2 hover:scale-105 transition-transform transition-colors duration-300 ease-in-out cursor-pointer'
                     >
                         <path
                             d={isJobStructerVisible
@@ -64,7 +64,7 @@ function EmpFiles() {
                         width="24px"
                         fill="#FFFFFF"
                         onClick={() => toggleVisibility(setIsHierarchyStructerVisible)}
-                        className='bg-red-1 rounded-md ml-auto hover:bg-red-1 hover:scale-105 transition-transform transition-colors duration-300 ease-in-out cursor-pointer'
+                        className='bg-blue-1 rounded-md ml-auto hover:bg-red-2 hover:scale-105 transition-transform transition-colors duration-300 ease-in-out cursor-pointer'
                     >
                         <path
                             d={isHierarchyStructerVisible
@@ -90,7 +90,7 @@ function EmpFiles() {
                         width="24px"
                         fill="#FFFFFF"
                         onClick={() => toggleVisibility(setIsGeographyStructureVisible)}
-                        className='bg-red-1 rounded-md ml-auto hover:bg-red-1 hover:scale-105 transition-transform transition-colors duration-300 ease-in-out cursor-pointer'
+                        className='bg-blue-1 rounded-md ml-auto hover:bg-red-2 hover:scale-105 transition-transform transition-colors duration-300 ease-in-out cursor-pointer'
                     >
                         <path
                             d={isGeographyStructureVisible
