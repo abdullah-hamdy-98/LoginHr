@@ -7,7 +7,7 @@ function empInquiry() {
     
     return (
 
-        <div className="flex flex-1 flex-col gap-40">
+        <div className="flex flex-1 flex-col gap-4">
             <EmpFilter />
             <InquiryTable />
         </div>
