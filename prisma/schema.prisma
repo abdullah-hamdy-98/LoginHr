@@ -8,25 +8,26 @@ datasource db {
 }
 
 model EmpFiles {
-  Id              Int        @default(autoincrement())
-  EmpCode         String     @unique @db.NVarChar(15)
-  NameEN          String     @db.NVarChar(35)
-  NameAR          String?    @db.NVarChar(35)
-  EmpImg          String?    @db.NVarChar(50)
+  Id              Int          @default(autoincrement())
+  EmpCode         String       @unique @db.NVarChar(15)
+  NameEN          String       @db.NVarChar(35)
+  NameAR          String?      @db.NVarChar(35)
+  EmpImg          String?      @db.NVarChar(50)
   //From Job Table
-  JobCode         String?    @db.NVarChar(3)
-  jobTitle        JobTitles? @relation(fields: [JobCode], references: [JobCode])
+  JobCode         String?      @db.NVarChar(3)
+  jobTitle        JobTitles?   @relation(fields: [JobCode], references: [JobCode])
   JobCategoryCode Int?
+  JobCategory     JobCategory? @relation(fields: [JobCategoryCode], references: [JobCategoryCode])
   //From HierarchyStructure Table
-  L1_Hierarchy    String?    @db.NVarChar(15) //ParentID : 0
-  L2_Hierarchy    String?    @db.NVarChar(15) //ParentID : 1
-  L3_Hierarchy    String?    @db.NVarChar(15) //ParentID : 2
+  L1_Hierarchy    String?      @db.NVarChar(15) //ParentID : 0
+  L2_Hierarchy    String?      @db.NVarChar(15) //ParentID : 1
+  L3_Hierarchy    String?      @db.NVarChar(15) //ParentID : 2
   //From GeoStructure Table
-  L1_Geo          String?    @db.NVarChar(15) //ParentID : 0
-  L2_Geo          String?    @db.NVarChar(15) //ParentID : 1
-  L3_Geo          String?    @db.NVarChar(15) //ParentID : 2
-  EntryDate       DateTime   @default(now())
-  UpdateDate      DateTime   @updatedAt
+  L1_Geo          String?      @db.NVarChar(15) //ParentID : 0
+  L2_Geo          String?      @db.NVarChar(15) //ParentID : 1
+  L3_Geo          String?      @db.NVarChar(15) //ParentID : 2
+  EntryDate       DateTime     @default(now())
+  UpdateDate      DateTime     @updatedAt
 
   @@id([Id, EmpCode])
 }
@@ -42,9 +43,10 @@ model JobTitles {
 }
 
 model JobCategory {
-  Id              Int    @default(autoincrement())
-  JobCategoryCode Int    @unique
-  JobCategory     String @db.NVarChar(15)
+  Id              Int        @default(autoincrement())
+  JobCategoryCode Int        @unique
+  JobCategory     String     @db.NVarChar(15)
+  EmpFiles        EmpFiles[]
 
   @@id([Id, JobCategoryCode])
 }

@@ -54,3 +54,33 @@ export const employeeData = [
         Sector: 'Management Board'
     },
 ]
+
+export const tableData = [
+    {
+        id: '0019',
+        name: 'Abdullah Hamdy Hussien',
+        job: 'NextJS Developer',
+        company: 'Login Hr System',
+        branch: 'Technicality',
+        sector: 'Development',
+        image: '/EmpPics/DefaultAvatar.png',
+    },
+    {
+        id: '0025',
+        name: 'Sarah Ahmed',
+        job: 'Frontend Developer',
+        company: 'Login Hr System',
+        branch: 'Design',
+        sector: 'UI/UX',
+        image: '/EmpPics/DefaultAvatar.png',
+    },
+    {
+        id: '0030',
+        name: 'Mohamed Ali',
+        job: 'Backend Developer',
+        company: 'Login Hr System',
+        branch: 'Engineering',
+        sector: 'Software Development',
+        image: '/EmpPics/DefaultAvatar.png',
+    }
+]

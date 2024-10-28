@@ -4,22 +4,20 @@ import { EmpFileSchema } from '@/app/utils/validationSchemas'
 import { EmpFiles } from '@prisma/client'
 import prisma from '@/app/utils/db'
 
-/**
- * @method GET
- * @url ~/api/EmpFiles
- * @desc Get all Employee Data
- * @access private
- */
-
 export async function GET(request: NextRequest) {
     try {
-        const empFiles = await prisma.empFiles.findMany()
-        return NextResponse.json(empFiles, { status: 200 })
+        const empFiles = await prisma.empFiles.findMany({
+            include: {
+                jobTitle: true,  
+                JobCategory: true  
+            }
+        });
+        return NextResponse.json(empFiles, { status: 200 });
     } catch (error) {
-        return NextResponse.json({ message: "Internal Server Error" })
+        console.error("Error fetching employee files:", error);
+        return NextResponse.json({ message: "Internal Server Error" }, { status: 500 });
     }
 }
-
 
 /**
  * @method POST

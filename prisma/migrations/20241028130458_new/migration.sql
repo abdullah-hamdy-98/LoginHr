@@ -1,0 +1,19 @@
+BEGIN TRY
+
+BEGIN TRAN;
+
+-- AddForeignKey
+ALTER TABLE [dbo].[EmpFiles] ADD CONSTRAINT [EmpFiles_JobCategoryCode_fkey] FOREIGN KEY ([JobCategoryCode]) REFERENCES [dbo].[JobCategory]([JobCategoryCode]) ON DELETE SET NULL ON UPDATE CASCADE;
+
+COMMIT TRAN;
+
+END TRY
+BEGIN CATCH
+
+IF @@TRANCOUNT > 0
+BEGIN
+    ROLLBACK TRAN;
+END;
+THROW
+
+END CATCH

@@ -14,8 +14,8 @@ function BasicInfo() {
                 <div className="col-span-2 row-span-4 flex justify-center items-center">
                     <Image src='/EmpPics/DefaultAvatar.png' alt="Employee Picture" width={180} height={0} />
 
-                    <div className="flex flex-col p-4 gap-2">
-                        {/* Upload Image */}
+                    {/* <div className="flex flex-col p-4 gap-2">
+                     
                         <label htmlFor="UpEmpPic" className="cursor-pointer px-4 py-1 text-subtle-medium inline-flex items-center text-white bg-blue-1 rounded-lg hover:bg-blue transition-colors duration-300 ease-in-out">
                             <svg xmlns="http://www.w3.org/2000/svg" height="16px" viewBox="100 -960 960 960" width="16px" fill="#FFFFFF">
                                 <path d="M440-160v-326L336-382l-56-58 200-200 200 200-56 58-104-104v326h-80ZM160-600v-120q0-33 23.5-56.5T240-800h480q33 0 56.5 23.5T800-720v120h-80v-120H240v120h-80Z" />
@@ -24,7 +24,6 @@ function BasicInfo() {
                         </label>
                         <input type="file" id="UpEmpPic" className="hidden" />
 
-                        {/* Remove Image */}
                         <button
                             type="button"
                             id="DelEmpPic"
@@ -35,7 +34,7 @@ function BasicInfo() {
                             </svg>
                             Remove
                         </button>
-                    </div>
+                    </div> */}
                 </div>
                 <div className="col-span-1 col-start-3">
                     <div>
