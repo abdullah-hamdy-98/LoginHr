@@ -29,8 +29,7 @@ export const employeeData = [
         Category: 'White Collar',
         Company: 'Login Hr System',
         Bransh: 'Tanta Gharbia Gov',
-        Sector: 'Development',
-        DirectManager: 'Ibrahim Farag'
+        Sector: 'Development'
     },
     {
         EmpPic: '/EmpPics/0002.png',
@@ -41,8 +40,7 @@ export const employeeData = [
         Category: 'White Collar',
         Company: 'Login Hr System',
         Bransh: 'Tanta Gharbia Gov',
-        Sector: 'Technical Support',
-        DirectManager: 'Mohammed El-Awam'
+        Sector: 'Technical Support'
     },
     {
         EmpPic: '/EmpPics/0003.png',
@@ -53,7 +51,6 @@ export const employeeData = [
         Category: 'White Collar',
         Company: 'Login Hr System',
         Bransh: 'Tanta Gharbia Gov',
-        Sector: 'Management Board',
-        DirectManager: 'Mohammed El-Awam'
+        Sector: 'Management Board'
     },
 ]

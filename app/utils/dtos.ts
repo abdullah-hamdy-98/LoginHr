@@ -6,14 +6,35 @@ export interface NewChartDto {
 }
 
 export interface createEmpFileDto {
-    EmpPic: string,
+    EmpImg?: string,
     EmpCode: string,
-    NameAr: string,
-    NameEn: string,
-    Job: string,
-    Category: string,
-    Company: string,
-    Bransh: string,
-    Sector: string,
-    DirectManager: string
+    NameAR?: string,
+    NameEN: string,
+    JobCode?: string,
+    JobCategoryCode?: number,
+    L1_Hierarchy?: string,
+    L2_Hierarchy?: string,
+    L3_Hierarchy?: string,
+    L1_Geo?: string,
+    L2_Geo?: string,
+    L3_Geo?: string
+}
+
+export interface updateEmpFileDto {
+    EmpImg?: string,
+    EmpCode?: string,
+    NameAR?: string,
+    NameEN?: string,
+    JobCode?: string,
+    JobCategoryCode?: number,
+    L1_Hierarchy?: string,
+    L2_Hierarchy?: string,
+    L3_Hierarchy?: string,
+    L1_Geo?: string,
+    L2_Geo?: string,
+    L3_Geo?: string
+}
+
+export interface Props {
+    params: { empCode: string }
 }

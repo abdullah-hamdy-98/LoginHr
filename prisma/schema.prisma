@@ -1,0 +1,64 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlserver"
+  url      = env("DATABASE_URL")
+}
+
+model EmpFiles {
+  Id              Int        @default(autoincrement())
+  EmpCode         String     @unique @db.NVarChar(15)
+  NameEN          String     @db.NVarChar(35)
+  NameAR          String?    @db.NVarChar(35)
+  EmpImg          String?    @db.NVarChar(50)
+  //From Job Table
+  JobCode         String?    @db.NVarChar(3)
+  jobTitle        JobTitles? @relation(fields: [JobCode], references: [JobCode])
+  JobCategoryCode Int?
+  //From HierarchyStructure Table
+  L1_Hierarchy    String?    @db.NVarChar(15) //ParentID : 0
+  L2_Hierarchy    String?    @db.NVarChar(15) //ParentID : 1
+  L3_Hierarchy    String?    @db.NVarChar(15) //ParentID : 2
+  //From GeoStructure Table
+  L1_Geo          String?    @db.NVarChar(15) //ParentID : 0
+  L2_Geo          String?    @db.NVarChar(15) //ParentID : 1
+  L3_Geo          String?    @db.NVarChar(15) //ParentID : 2
+  EntryDate       DateTime   @default(now())
+  UpdateDate      DateTime   @updatedAt
+
+  @@id([Id, EmpCode])
+}
+
+model JobTitles {
+  Id              Int        @default(autoincrement())
+  JobCode         String     @unique @db.NVarChar(3)
+  JobTitle        String     @db.NVarChar(25)
+  JobCategoryCode Int
+  EmpFiles        EmpFiles[]
+
+  @@id([Id, JobCode])
+}
+
+model JobCategory {
+  Id              Int    @default(autoincrement())
+  JobCategoryCode Int    @unique
+  JobCategory     String @db.NVarChar(15)
+
+  @@id([Id, JobCategoryCode])
+}
+
+model HierarchyStructure {
+  Id          Int    @id @default(autoincrement())
+  Description String @db.NVarChar(25)
+  ParentID    String @db.NVarChar(15)
+  ChildID     String @db.NVarChar(15)
+}
+
+model GeoStructure {
+  Id          Int    @id @default(autoincrement())
+  Description String @db.NVarChar(25)
+  ParentID    String @db.NVarChar(15)
+  ChildID     String @db.NVarChar(15)
+}
