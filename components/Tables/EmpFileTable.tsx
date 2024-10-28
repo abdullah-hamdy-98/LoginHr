@@ -91,7 +91,7 @@ function EmpFileTable() {
                         paginatedData.map((employee) => (
                             <tr
                                 key={employee.EmpCode}
-                                className={`text-subtle-medium bg-white border-b ${selectedEmployee?.EmpCode === employee.EmpCode ? 'bg-dark-3' : ''}`} // Highlight selected row
+                                className={`cursor-pointer text-subtle-medium bg-white border-b ${selectedEmployee?.EmpCode === employee.EmpCode ? 'bg-dark-3 cursor-default' : ''}`} // Highlight selected row
                                 onClick={() => handleRowClick(employee)}
                             >
                                 <th scope="row" className="flex items-center px-4 py-2 text-gray-900 whitespace-nowrap">
@@ -113,7 +113,7 @@ function EmpFileTable() {
                     )}
                 </tbody>
             </table>
-            <div className="flex justify-end gap-4 items-center pt-4">
+            <div className="flex justify-center gap-4 items-center pt-6">
                 <button
                     onClick={handlePreviousPage}
                     disabled={currentPage === 1}

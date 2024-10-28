@@ -58,18 +58,18 @@ function EmpPopup() {
                         </div>
 
                         {/* Modal Footer */}
-                        <div className="flex items-center p-4 md:p-5 border-t border-gray-200 rounded-b">
+                        <div className="flex  justify-end items-center p-4 md:p-5 border-t border-gray-200 rounded-b">
                             <button
                                 onClick={closeModal}
                                 type="button"
-                                className="px-3 py-1.5 mx-1 text-subtle-medium inline-flex items-center text-white bg-blue-1 rounded-md hover:bg-blue transition-colors duration-300 ease-in-out"
+                                className="px-3 py-1.5 mx-1 text-subtle-medium inline-flex items-center text-white bg-gray-400 rounded-md hover:bg-blue transition-colors duration-300 ease-in-out"
                             >
                                 Submit
                             </button>
                             <button
                                 onClick={closeModal}
                                 type="button"
-                                className="px-2 py-1.5 mx-1 text-subtle-medium inline-flex items-center text-white bg-red-1 rounded-md hover:bg-red-2 transition-colors duration-300 ease-in-out"
+                                className="px-2 py-1.5 mx-1 text-subtle-medium inline-flex items-center text-white bg-gray-400 rounded-md hover:bg-red-2 transition-colors duration-300 ease-in-out"
                             >
                                 Cancel
                             </button>

@@ -12,9 +12,9 @@ function BasicInfo() {
         <>
             <div className="grid grid-cols-4 grid-rows-3 gap-4 items-center text-center">
                 <div className="col-span-2 row-span-4 flex justify-center items-center">
-                    <Image src='/EmpPics/DefaultAvatar.png' alt="Employee Picture" width={180} height={0} />
-
-                    {/* <div className="flex flex-col p-4 gap-2">
+                    <Image src='/EmpPics/DefaultAvatar.png' alt="Employee Picture" width={140} height={0} />
+                    
+                    <div className="flex flex-col p-4 gap-2 hidden">
                      
                         <label htmlFor="UpEmpPic" className="cursor-pointer px-4 py-1 text-subtle-medium inline-flex items-center text-white bg-blue-1 rounded-lg hover:bg-blue transition-colors duration-300 ease-in-out">
                             <svg xmlns="http://www.w3.org/2000/svg" height="16px" viewBox="100 -960 960 960" width="16px" fill="#FFFFFF">
@@ -34,7 +34,7 @@ function BasicInfo() {
                             </svg>
                             Remove
                         </button>
-                    </div> */}
+                    </div>
                 </div>
                 <div className="col-span-1 col-start-3">
                     <div>
