@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import Image from 'next/image';
-import { Employee } from '@/app/utils/dtos';
+import { JobTitle, JobCategory, Employee } from '@/app/utils/dtos';
 
 function EmpFileTable() {
     const [tableData, setTableData] = useState<Employee[]>([]);
@@ -73,7 +73,7 @@ function EmpFileTable() {
                 </div>
             </div>
             <table className="w-full text-left text-gray-500">
-                <thead className="text-subtle-semibold text-gray-700 uppercase bg-gray-50 dark:bg-gray-700">
+                <thead className="text-subtle-semibold text-gray-700 uppercase bg-gray-100 dark:bg-gray-700">
                     <tr>
                         <th scope="col" className="px-4 py-2">Name</th>
                         <th scope="col" className="px-4 py-2">Job</th>
@@ -91,13 +91,13 @@ function EmpFileTable() {
                         paginatedData.map((employee) => (
                             <tr
                                 key={employee.EmpCode}
-                                className={`text-subtle-medium bg-white border-b ${selectedEmployee?.EmpCode === employee.EmpCode ? 'bg-gray-200' : ''}`} // Highlight selected row
+                                className={`text-subtle-medium bg-white border-b ${selectedEmployee?.EmpCode === employee.EmpCode ? 'bg-dark-3' : ''}`} // Highlight selected row
                                 onClick={() => handleRowClick(employee)}
                             >
                                 <th scope="row" className="flex items-center px-4 py-2 text-gray-900 whitespace-nowrap">
                                     <Image className="rounded-full"
                                         src={employee.EmpImg}
-                                        width={50} height={50}
+                                        width={30} height={30}
                                         alt="Employee image" />
                                     <div className="pl-3">
                                         <div className="text-base font-semibold">{employee.NameEN}</div>
@@ -105,7 +105,7 @@ function EmpFileTable() {
                                     </div>
                                 </th>
                                 <td className="px-4 py-2">{employee.jobTitle?.JobTitle || 'N/A'}</td>
-                                <td className="px-4 py-2">{employee.L1_Hierarchy}</td>
+                                <td className="px-4 py-2">{employee.JobCategory?.JobCategory || 'N/A'}</td>
                                 <td className="px-4 py-2">{employee.L2_Hierarchy}</td>
                                 <td className="px-4 py-2">{employee.L3_Hierarchy}</td>
                             </tr>

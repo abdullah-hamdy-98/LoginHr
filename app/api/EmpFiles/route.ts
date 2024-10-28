@@ -8,8 +8,8 @@ export async function GET(request: NextRequest) {
     try {
         const empFiles = await prisma.empFiles.findMany({
             include: {
-                jobTitle: true,  
-                JobCategory: true  
+                jobTitle: true,
+                JobCategory: true
             }
         });
         return NextResponse.json(empFiles, { status: 200 });
