@@ -45,14 +45,14 @@ export interface JobTitle {
     JobCode: string;
     JobTitle: string;
     JobCategoryCode: number;
-  }
-  
+}
+
 export interface JobCategory {
     Id: number;
     JobCategoryCode: number;
     JobCategory: string;
-  }
-  
+}
+
 export interface Employee {
     Id: number;
     EmpCode: string;
@@ -64,11 +64,17 @@ export interface Employee {
     L1_Hierarchy: string;
     L2_Hierarchy: string;
     L3_Hierarchy: string;
+    L1_HierarchyDesc: string;
+    L2_HierarchyDesc: string;
+    L3_HierarchyDesc: string;
     L1_Geo: string;
     L2_Geo: string;
     L3_Geo: string;
+    L1_GeoDesc: string;
+    L2_GeoDesc: string;
+    L3_GeoDesc: string;
     EntryDate: string;
     UpdateDate: string;
     jobTitle: JobTitle;
     JobCategory: JobCategory;
-  }
+}

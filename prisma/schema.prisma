@@ -8,27 +8,36 @@ datasource db {
 }
 
 model EmpFiles {
-  Id              Int                 @default(autoincrement())
-  EmpCode         String              @unique @db.NVarChar(15)
-  NameEN          String              @db.NVarChar(35)
-  NameAR          String?             @db.NVarChar(35)
-  EmpImg          String?             @db.NVarChar(50)
-  //From Job Table
-  JobCode         String?             @db.NVarChar(3)
-  jobTitle        JobTitles?          @relation(fields: [JobCode], references: [JobCode])
+  Id      Int     @default(autoincrement())
+  EmpCode String  @unique @db.NVarChar(15)
+  NameEN  String  @db.NVarChar(35)
+  NameAR  String? @db.NVarChar(35)
+  EmpImg  String? @db.NVarChar(50)
+
+  // From Job Table
+  JobCode         String?      @db.NVarChar(3)
+  jobTitle        JobTitles?   @relation(fields: [JobCode], references: [JobCode])
   JobCategoryCode Int?
-  JobCategory     JobCategory?        @relation(fields: [JobCategoryCode], references: [JobCategoryCode])
-  //From HierarchyStructure Table
-  L1_Hierarchy    String?             @db.NVarChar(15) //ParentID : 0
-  L1_H            HierarchyStructure? @relation(fields: [L1_Hierarchy], references: [ChildID])
-  L2_Hierarchy    String?             @db.NVarChar(15) //ParentID : 1
-  L3_Hierarchy    String?             @db.NVarChar(15) //ParentID : 2
-  //From GeoStructure Table
-  L1_Geo          String?             @db.NVarChar(15) //ParentID : 0
-  L2_Geo          String?             @db.NVarChar(15) //ParentID : 1
-  L3_Geo          String?             @db.NVarChar(15) //ParentID : 2
-  EntryDate       DateTime            @default(now())
-  UpdateDate      DateTime            @updatedAt
+  JobCategory     JobCategory? @relation(fields: [JobCategoryCode], references: [JobCategoryCode])
+
+  // From HierarchyStructure Table
+  L1_Hierarchy     String? @db.NVarChar(15) // ParentID: 0
+  L2_Hierarchy     String? @db.NVarChar(15) // ParentID: 1
+  L3_Hierarchy     String? @db.NVarChar(15) // ParentID: 2
+  L1_HierarchyDesc String? @db.NVarChar(25)
+  L2_HierarchyDesc String? @db.NVarChar(25)
+  L3_HierarchyDesc String? @db.NVarChar(25)
+
+  // From GeoStructure Table
+  L1_Geo     String? @db.NVarChar(15) // ParentID: 0
+  L2_Geo     String? @db.NVarChar(15) // ParentID: 1
+  L3_Geo     String? @db.NVarChar(15) // ParentID: 2
+  L1_GeoDesc String? @db.NVarChar(25)
+  L2_GeoDesc String? @db.NVarChar(25)
+  L3_GeoDesc String? @db.NVarChar(25)
+
+  EntryDate  DateTime @default(now())
+  UpdateDate DateTime @updatedAt
 
   @@id([Id, EmpCode])
 }
@@ -53,15 +62,17 @@ model JobCategory {
 }
 
 model HierarchyStructure {
-  Id          Int        @id @default(autoincrement())
-  Description String     @db.NVarChar(25)
-  ParentID    String     @db.NVarChar(15)
-  ChildID     String     @unique @db.NVarChar(15)
-  EmpFiles    EmpFiles[]
+  Id          Int    @id @default(autoincrement())
+  HierID      String @unique @db.NVarChar(15)
+  Description String @db.NVarChar(25)
+  ParentID    String @db.NVarChar(15)
+  ChildID     String @db.NVarChar(15)
 }
+
 
 model GeoStructure {
   Id          Int    @id @default(autoincrement())
+  GeoID       String @unique @db.NVarChar(15)
   Description String @db.NVarChar(25)
   ParentID    String @db.NVarChar(15)
   ChildID     String @db.NVarChar(15)

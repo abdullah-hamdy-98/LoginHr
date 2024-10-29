@@ -1,12 +1,17 @@
 import { useEffect, useState } from 'react';
 import Image from 'next/image';
-import { JobTitle, JobCategory, Employee } from '@/app/utils/dtos';
+import { Employee } from '@/app/utils/dtos';
 
-function EmpFileTable() {
+interface EmpFileTableProps {
+    onSelectEmployee: (employee: Employee | null) => void;
+}
+
+function EmpFileTable({ onSelectEmployee }: EmpFileTableProps) {
     const [tableData, setTableData] = useState<Employee[]>([]);
     const [loading, setLoading] = useState(true);
     const [currentPage, setCurrentPage] = useState(1);
     const [selectedEmployee, setSelectedEmployee] = useState<Employee | null>(null);
+    const [searchQuery, setSearchQuery] = useState('');
     const rowsPerPage = 5;
 
     useEffect(() => {
@@ -25,8 +30,18 @@ function EmpFileTable() {
         fetchData();
     }, []);
 
-    const totalPages = Math.ceil(tableData.length / rowsPerPage);
-    const paginatedData = tableData.slice(
+    const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setSearchQuery(e.target.value);
+        setCurrentPage(1);
+    };
+
+    const filteredData = tableData.filter((employee) =>
+        employee.NameEN.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        employee.EmpCode.toLowerCase().includes(searchQuery.toLowerCase())
+    );
+
+    const totalPages = Math.ceil(filteredData.length / rowsPerPage);
+    const paginatedData = filteredData.slice(
         (currentPage - 1) * rowsPerPage,
         currentPage * rowsPerPage
     );
@@ -40,40 +55,26 @@ function EmpFileTable() {
     };
 
     const handleRowClick = (employee: Employee) => {
-        setSelectedEmployee(selectedEmployee?.EmpCode === employee.EmpCode ? null : employee);
+        const isSameEmployee = selectedEmployee?.EmpCode === employee.EmpCode;
+        const newSelectedEmployee = isSameEmployee ? null : employee;
+        setSelectedEmployee(newSelectedEmployee);
+        onSelectEmployee(newSelectedEmployee);
     };
 
     return (
         <div className="relative overflow-x-auto sm:rounded-lg">
             <div className="flex items-center justify-between flex-column flex-wrap md:flex-row space-y-4 md:space-y-0 pb-2 bg-white">
-                <div className="relative">
-                    <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-                        <svg
-                            className="w-4 h-4 text-gray-500"
-                            aria-hidden="true"
-                            xmlns="http://www.w3.org/2000/svg"
-                            fill="none"
-                            viewBox="0 0 20 20"
-                        >
-                            <path
-                                stroke="currentColor"
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                strokeWidth="2"
-                                d="M19 19l-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"
-                            />
-                        </svg>
-                    </div>
-                    <input
-                        type="text"
-                        id="table-search-users"
-                        className="block p-1.5 pl-10 text-subtle-semibold text-gray-900 border border-gray-300 rounded-lg w-80 bg-gray-50 focus:ring-blue-500 focus:border-blue-500"
-                        placeholder="Search for employee"
-                    />
-                </div>
+                <input
+                    type="text"
+                    id="table-search-users"
+                    className="block p-1.5 text-subtle-semibold text-gray-900 border border-gray-300 rounded-lg w-80 bg-gray-50 focus:ring-blue-500 focus:border-blue-500"
+                    placeholder="Search for employee"
+                    value={searchQuery}
+                    onChange={handleSearchChange}
+                />
             </div>
             <table className="w-full text-left text-gray-500">
-                <thead className="text-subtle-semibold text-gray-700 uppercase bg-gray-100 dark:bg-gray-700">
+                <thead className="text-subtle-semibold text-gray-700 uppercase bg-gray-100 border-b-2">
                     <tr>
                         <th scope="col" className="px-4 py-2">Name</th>
                         <th scope="col" className="px-4 py-2">Job</th>
@@ -91,44 +92,29 @@ function EmpFileTable() {
                         paginatedData.map((employee) => (
                             <tr
                                 key={employee.EmpCode}
-                                className={`cursor-pointer text-subtle-medium bg-white border-b ${selectedEmployee?.EmpCode === employee.EmpCode ? 'bg-dark-3 cursor-default' : ''}`} // Highlight selected row
+                                className={`cursor-pointer text-subtle-medium bg-white border-b ${selectedEmployee?.EmpCode === employee.EmpCode ? 'bg-[#f3f4f6] cursor-default' : ''}`}
                                 onClick={() => handleRowClick(employee)}
                             >
                                 <th scope="row" className="flex items-center px-4 py-2 text-gray-900 whitespace-nowrap">
-                                    <Image className="rounded-full"
-                                        src={employee.EmpImg}
-                                        width={30} height={30}
-                                        alt="Employee image" />
+                                    <Image className="rounded-full" src={employee.EmpImg} width={30} height={30} alt="Employee image" />
                                     <div className="pl-3">
                                         <div className="text-base font-semibold">{employee.NameEN}</div>
                                         <div className="font-normal text-gray-500">{employee.EmpCode}</div>
                                     </div>
                                 </th>
-                                <td className="px-4 py-2">{employee.jobTitle?.JobTitle || 'N/A'}</td>
-                                <td className="px-4 py-2">{employee.JobCategory?.JobCategory || 'N/A'}</td>
-                                <td className="px-4 py-2">{employee.L2_Hierarchy}</td>
-                                <td className="px-4 py-2">{employee.L3_Hierarchy}</td>
+                                <td className="px-4 py-2">{employee.jobTitle?.JobTitle || 'NULL'}</td>
+                                <td className="px-4 py-2">{employee.L1_HierarchyDesc}</td>
+                                <td className="px-4 py-2">{employee.L2_HierarchyDesc}</td>
+                                <td className="px-4 py-2">{employee.L3_HierarchyDesc}</td>
                             </tr>
                         ))
                     )}
                 </tbody>
             </table>
             <div className="flex justify-center gap-4 items-center pt-6">
-                <button
-                    onClick={handlePreviousPage}
-                    disabled={currentPage === 1}
-                    className="text-subtle-medium px-4 py-1 bg-gray-200 text-gray-700 rounded disabled:opacity-50"
-                >
-                    Previous
-                </button>
+                <button onClick={handlePreviousPage} disabled={currentPage === 1} className="text-subtle-medium px-4 py-1 bg-gray-200 text-gray-700 rounded disabled:opacity-50">Previous</button>
                 <span className='text-subtle-medium'>Page {currentPage} of {totalPages}</span>
-                <button
-                    onClick={handleNextPage}
-                    disabled={currentPage === totalPages}
-                    className="text-subtle-medium px-4 py-1 bg-gray-200 text-gray-700 rounded disabled:opacity-50"
-                >
-                    Next
-                </button>
+                <button onClick={handleNextPage} disabled={currentPage === totalPages} className="text-subtle-medium px-4 py-1 bg-gray-200 text-gray-700 rounded disabled:opacity-50">Next</button>
             </div>
         </div>
     );
