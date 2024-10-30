@@ -7,7 +7,7 @@ export interface NewChartDto {
 
 export interface createEmpFileDto {
     EmpImg?: string,
-    EmpCode: string,
+    EmpCode?: string,
     NameAR?: string,
     NameEN: string,
     JobCode?: string,
@@ -77,4 +77,27 @@ export interface Employee {
     UpdateDate: string;
     jobTitle: JobTitle;
     JobCategory: JobCategory;
+}
+
+
+export interface JobStructure {
+    JobCode: string;
+    JobTitle: string;
+    JobCategory: string;
+}
+
+export interface HierStructureItem {
+    Id: number;
+    HierID: string;
+    Description: string;
+    ParentID: string;
+    ChildID: string;
+}
+
+export interface GeoStructureItem {
+    Id: number;
+    GeoID: string;
+    Description: string;
+    ParentID: string;
+    ChildID: string;
 }

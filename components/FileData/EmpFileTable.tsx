@@ -58,7 +58,7 @@ function EmpFileTable({ onSelectEmployee }: EmpFileTableProps) {
         const isSameEmployee = selectedEmployee?.EmpCode === employee.EmpCode;
         const newSelectedEmployee = isSameEmployee ? null : employee;
         setSelectedEmployee(newSelectedEmployee);
-        onSelectEmployee(newSelectedEmployee);
+        onSelectEmployee(newSelectedEmployee); // Callback to parent
     };
 
     return (
@@ -92,11 +92,11 @@ function EmpFileTable({ onSelectEmployee }: EmpFileTableProps) {
                         paginatedData.map((employee) => (
                             <tr
                                 key={employee.EmpCode}
-                                className={`cursor-pointer text-subtle-medium bg-white border-b ${selectedEmployee?.EmpCode === employee.EmpCode ? 'bg-[#f3f4f6] cursor-default' : ''}`}
+                                className={`cursor-pointer text-subtle-medium bg-white border-b ${selectedEmployee?.EmpCode === employee.EmpCode ? 'bg-light-4' : ''}`}
                                 onClick={() => handleRowClick(employee)}
                             >
                                 <th scope="row" className="flex items-center px-4 py-2 text-gray-900 whitespace-nowrap">
-                                    <Image className="rounded-full" src={employee.EmpImg} width={30} height={30} alt="Employee image" />
+                                    <Image className="rounded-full" src={employee.EmpImg || '/EmpPics/DefaultAvatar.png'} width={30} height={30} alt="Employee image" />
                                     <div className="pl-3">
                                         <div className="text-base font-semibold">{employee.NameEN}</div>
                                         <div className="font-normal text-gray-500">{employee.EmpCode}</div>

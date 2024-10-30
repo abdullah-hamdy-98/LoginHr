@@ -1,44 +1,134 @@
-function GeoStructer() {
-    return (
+import React, { useEffect, useState } from 'react';
+import { GeoStructureItem } from '@/app/utils/dtos';
 
+function GeoStructer() {
+    const [countries, setCountries] = useState<{ value: string; label: string }[]>([]);
+    const [governorates, setGovernorates] = useState<{ value: string; label: string }[]>([]);
+    const [cities, setCities] = useState<{ value: string; label: string }[]>([]);
+    const [selectedCountry, setSelectedCountry] = useState<string | null>(null);
+    const [selectedGovernorate, setSelectedGovernorate] = useState<string | null>(null);
+    const [selectedCity, setSelectedCity] = useState<string | null>(null); 
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const response = await fetch('http://localhost:3000/api/GeoStructure');
+                const data: GeoStructureItem[] = await response.json();
+
+                const countryOptions = data
+                    .filter(item => item.ParentID === "1" && item.ChildID === "0")
+                    .map(item => ({ value: item.GeoID, label: item.Description }));
+
+                setCountries(countryOptions);
+            } catch (error) {
+                console.error('Error fetching countries:', error);
+            }
+        };
+
+        fetchData();
+    }, []);
+
+    useEffect(() => {
+        const fetchGovernorates = async () => {
+            if (selectedCountry) {
+                try {
+                    const response = await fetch('http://localhost:3000/api/GeoStructure');
+                    const data: GeoStructureItem[] = await response.json();
+
+                    const governorateOptions = data
+                        .filter(item => item.ParentID === "2" && item.ChildID === selectedCountry)
+                        .map(item => ({ value: item.GeoID, label: item.Description }));
+
+                    setGovernorates(governorateOptions);
+                    setCities([]); 
+                    setSelectedGovernorate(null);
+                    setSelectedCity(null); 
+                } catch (error) {
+                    console.error('Error fetching governorates:', error);
+                }
+            } else {
+                setGovernorates([]);
+                setCities([]);
+                setSelectedGovernorate(null);
+                setSelectedCity(null);
+            }
+        };
+
+        fetchGovernorates();
+    }, [selectedCountry]);
+
+    useEffect(() => {
+        const fetchCities = async () => {
+            if (selectedGovernorate) {
+                try {
+                    const response = await fetch('http://localhost:3000/api/GeoStructure');
+                    const data: GeoStructureItem[] = await response.json();
+
+                    const cityOptions = data
+                        .filter(item => item.ParentID === "3" && item.ChildID === selectedGovernorate)
+                        .map(item => ({ value: item.GeoID, label: item.Description }));
+
+                    setCities(cityOptions);
+                } catch (error) {
+                    console.error('Error fetching cities:', error);
+                }
+            } else {
+                setCities([]);
+                setSelectedCity(null); 
+            }
+        };
+
+        fetchCities();
+    }, [selectedGovernorate]);
+
+    return (
         <div className="grid grid-cols-1 grid-rows-3 gap-4 items-center text-center">
             <div className="row-start-1">
-                <select id="JobCode"
+                <select
+                    id="countrySelect"
+                    value={selectedCountry || ''}
+                    onChange={(e) => setSelectedCountry(e.target.value)}
                     className="border border-dark-3 text-dark-1 text-subtle-medium rounded-md focus:ring-blue focus:border-blue block w-full p-1.5"
                 >
-                    <option value="" selected disabled>Select Country</option>
-                    <option value="Egypt">Egypt</option>
+                    <option value="" disabled>Select Country</option>
+                    {countries.map(country => (
+                        <option key={country.value} value={country.value}>{country.label}</option>
+                    ))}
                 </select>
             </div>
 
             <div className="row-start-2">
-                <select id="JobCode"
+                <select
+                    id="governorateSelect"
+                    value={selectedGovernorate || ''}
+                    onChange={(e) => {
+                        setSelectedGovernorate(e.target.value);
+                        setSelectedCity(null); // Reset city when governorate changes
+                    }}
                     className="border border-dark-3 text-dark-1 text-subtle-medium rounded-md focus:ring-blue focus:border-blue block w-full p-1.5"
                 >
-                    <option value="" selected disabled>Select Governorate</option>
-                    <option value="Gharbia">Al-Gharbia</option>
-                    <option value="Cairo">Cairo</option>
-                    <option value="Alexandria">Alexandria</option>
-                    <option value="Menofia">Al-Menofia</option>
-
+                    <option value="" disabled>Select Governorate</option>
+                    {governorates.map(governorate => (
+                        <option key={governorate.value} value={governorate.value}>{governorate.label}</option>
+                    ))}
                 </select>
             </div>
 
             <div className="row-start-3">
-                <select id="JobCode"
+                <select
+                    id="citySelect"
+                    value={selectedCity || ''} // Use selectedCity for the value
+                    onChange={(e) => setSelectedCity(e.target.value)} // Update selectedCity
                     className="border border-dark-3 text-dark-1 text-subtle-medium rounded-md focus:ring-blue focus:border-blue block w-full p-1.5"
                 >
-                    <option value="" selected disabled>Select City</option>
-                    <option value="Tanta">Tanta</option>
-                    <option value="Cairo">Cairo</option>
-                    <option value="Alexandria">Alexandria</option>
-                    <option value="Sadat">Sadat</option>
-
+                    <option value="" disabled>Select City</option>
+                    {cities.map(city => (
+                        <option key={city.value} value={city.value}>{city.label}</option>
+                    ))}
                 </select>
             </div>
         </div>
-
-    )
+    );
 }
 
 export default GeoStructer;

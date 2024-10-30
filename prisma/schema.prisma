@@ -8,57 +8,52 @@ datasource db {
 }
 
 model EmpFiles {
-  Id      Int     @default(autoincrement())
-  EmpCode String  @unique @db.NVarChar(15)
-  NameEN  String  @db.NVarChar(35)
-  NameAR  String? @db.NVarChar(35)
-  EmpImg  String? @db.NVarChar(50)
+  Id              Int        @id @default(autoincrement())
+  EmpCode         String?     @unique @db.NVarChar(15)
+  NameEN          String     @db.NVarChar(35)
+  NameAR          String?    @db.NVarChar(35)
+  EmpImg          String?    @db.NVarChar(50)
 
-  // From Job Table
-  JobCode         String?      @db.NVarChar(3)
-  jobTitle        JobTitles?   @relation(fields: [JobCode], references: [JobCode])
+  JobCode         String?    @db.NVarChar(3)
+  jobTitle        JobTitles? @relation(fields: [JobCode], references: [JobCode], onDelete: SetNull, onUpdate: NoAction)
+
   JobCategoryCode Int?
-  JobCategory     JobCategory? @relation(fields: [JobCategoryCode], references: [JobCategoryCode])
+  JobCategory     JobCategory? @relation(fields: [JobCategoryCode], references: [JobCategoryCode], onDelete: SetNull, onUpdate: NoAction)
 
-  // From HierarchyStructure Table
-  L1_Hierarchy     String? @db.NVarChar(15) // ParentID: 0
-  L2_Hierarchy     String? @db.NVarChar(15) // ParentID: 1
-  L3_Hierarchy     String? @db.NVarChar(15) // ParentID: 2
+  L1_Hierarchy     String? @db.NVarChar(15)
+  L2_Hierarchy     String? @db.NVarChar(15)
+  L3_Hierarchy     String? @db.NVarChar(15)
   L1_HierarchyDesc String? @db.NVarChar(25)
   L2_HierarchyDesc String? @db.NVarChar(25)
   L3_HierarchyDesc String? @db.NVarChar(25)
 
-  // From GeoStructure Table
-  L1_Geo     String? @db.NVarChar(15) // ParentID: 0
-  L2_Geo     String? @db.NVarChar(15) // ParentID: 1
-  L3_Geo     String? @db.NVarChar(15) // ParentID: 2
+  L1_Geo     String? @db.NVarChar(15)
+  L2_Geo     String? @db.NVarChar(15)
+  L3_Geo     String? @db.NVarChar(15)
   L1_GeoDesc String? @db.NVarChar(25)
   L2_GeoDesc String? @db.NVarChar(25)
   L3_GeoDesc String? @db.NVarChar(25)
 
   EntryDate  DateTime @default(now())
   UpdateDate DateTime @updatedAt
-
-  @@id([Id, EmpCode])
 }
 
 model JobTitles {
-  Id              Int        @default(autoincrement())
+  Id              Int        @id @default(autoincrement())
   JobCode         String     @unique @db.NVarChar(3)
   JobTitle        String     @db.NVarChar(25)
   JobCategoryCode Int
   EmpFiles        EmpFiles[]
 
-  @@id([Id, JobCode])
+  JobCategory JobCategory @relation(fields: [JobCategoryCode], references: [JobCategoryCode], onDelete: NoAction, onUpdate: NoAction)
 }
 
 model JobCategory {
-  Id              Int        @default(autoincrement())
-  JobCategoryCode Int        @unique
-  JobCategory     String     @db.NVarChar(15)
+  Id              Int         @id @default(autoincrement())
+  JobCategoryCode Int         @unique
+  JobCategory     String      @db.NVarChar(15)
   EmpFiles        EmpFiles[]
-
-  @@id([Id, JobCategoryCode])
+  JobTitles       JobTitles[]
 }
 
 model HierarchyStructure {
@@ -68,7 +63,6 @@ model HierarchyStructure {
   ParentID    String @db.NVarChar(15)
   ChildID     String @db.NVarChar(15)
 }
-
 
 model GeoStructure {
   Id          Int    @id @default(autoincrement())

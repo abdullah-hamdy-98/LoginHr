@@ -1,5 +1,5 @@
 "use Client"
-import EmpFileTable from "@/components/Tables/EmpFileTable";
+import EmpFileTable from "@/components/FileData/EmpFileTable";
 import { useState } from "react";
 import { Employee } from '@/app/utils/dtos';
 
