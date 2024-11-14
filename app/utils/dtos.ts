@@ -84,6 +84,7 @@ export interface JobStructure {
     JobCode: string;
     JobTitle: string;
     JobCategory: string;
+    JobCategoryCode: number;
 }
 
 export interface HierStructureItem {

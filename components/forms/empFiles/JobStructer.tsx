@@ -1,11 +1,16 @@
 import { useEffect, useState } from "react";
 import { JobStructure } from '@/app/utils/dtos';
 
-function JobStructer() {
+interface JobInfoProps {
+    selectedJobTitle: string;
+    setSelectedJobTitle: (value: string) => void;
+    selectedJobCategory: number;
+    setSelectedJobCategory: (value: number) => void;
+}
+
+function JobStructer({ selectedJobTitle, setSelectedJobTitle, selectedJobCategory, setSelectedJobCategory }: JobInfoProps) {
     const [jobStructures, setJobStructures] = useState<JobStructure[]>([]);
     const [jobCategories, setJobCategories] = useState<string[]>([]);
-    const [selectedJobTitle, setSelectedJobTitle] = useState<string>("");
-    const [selectedJobCategory, setSelectedJobCategory] = useState<string>("");
     const [loading, setLoading] = useState<boolean>(true);
 
     useEffect(() => {
@@ -33,9 +38,9 @@ function JobStructer() {
 
         const selectedJob = jobStructures.find(job => job.JobCode === jobCode);
         if (selectedJob) {
-            setSelectedJobCategory(selectedJob.JobCategory);
+            setSelectedJobCategory(selectedJob.JobCategoryCode);
         } else {
-            setSelectedJobCategory("");
+            setSelectedJobCategory(0);
         }
     };
 
@@ -68,15 +73,15 @@ function JobStructer() {
                     <select
                         id="JobCateg"
                         value={selectedJobCategory}
+                        onChange={(e) => setSelectedJobCategory(Number(e.target.value))}
                         className="border border-dark-3 text-dark-1 text-subtle-medium rounded-md focus:ring-blue focus:border-blue block w-full p-1.5"
-                        disabled={!selectedJobCategory}
                     >
-                        <option value="" disabled>Select Job Category</option>
+                        <option value="" >Select Job Category</option>
                         {loading ? (
                             <option>Loading...</option>
                         ) : (
-                            jobCategories.map((category, index) => (
-                                <option disabled key={index} value={category}>
+                            jobCategories.map((category) => (
+                                <option key={category} value={category}>
                                     {category}
                                 </option>
                             ))

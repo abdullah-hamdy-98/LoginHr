@@ -9,10 +9,8 @@ import prisma from "@/app/utils/db";
  */
 export async function GET(request: NextRequest) {
     try {
-        // Fetch all job titles
         const jobs = await prisma.jobTitles.findMany({});
 
-        // Fetch all job categories
         const jobCategories = await prisma.jobCategory.findMany({
             select: {
                 JobCategoryCode: true,
@@ -26,6 +24,7 @@ export async function GET(request: NextRequest) {
             return {
                 JobCode: job.JobCode,
                 JobTitle: job.JobTitle,
+                jobCategoryCode: job.JobCategoryCode,
                 JobCategory: category ? category.JobCategory : null // Fallback if no category is found
             };
         });

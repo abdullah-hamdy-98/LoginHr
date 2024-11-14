@@ -14,7 +14,7 @@ import prisma from '@/app/utils/db'
 
 export async function GET(request: NextRequest) {
     try {
-        // Fetch employee files
+
         const empFiles = await prisma.empFiles.findMany({
             include: {
                 jobTitle: true,
@@ -22,7 +22,7 @@ export async function GET(request: NextRequest) {
             }
         });
 
-        // Fetch hierarchy descriptions for each level
+
         const hierarchyDescriptions = await prisma.hierarchyStructure.findMany({
             where: { ParentID: { in: ['1', '2', '3'] } },
             select: {
@@ -33,7 +33,6 @@ export async function GET(request: NextRequest) {
             }
         });
 
-        // Fetch geo descriptions for each level
         const geoDescriptions = await prisma.geoStructure.findMany({
             where: { ParentID: { in: ['1', '2', '3'] } },
             select: {
@@ -44,7 +43,6 @@ export async function GET(request: NextRequest) {
             }
         });
 
-        // Attach descriptions to each employee file record based on hierarchy and geo structures
         const enrichedEmpFiles = empFiles.map(emp => {
             const hierarchy1Desc = hierarchyDescriptions.find(
                 item => item.ParentID === '1' && item.HierID === emp.L1_Hierarchy

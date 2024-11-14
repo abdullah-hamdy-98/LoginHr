@@ -58,7 +58,7 @@ function EmpFileTable({ onSelectEmployee }: EmpFileTableProps) {
         const isSameEmployee = selectedEmployee?.EmpCode === employee.EmpCode;
         const newSelectedEmployee = isSameEmployee ? null : employee;
         setSelectedEmployee(newSelectedEmployee);
-        onSelectEmployee(newSelectedEmployee); // Callback to parent
+        onSelectEmployee(newSelectedEmployee); 
     };
 
     return (
@@ -92,7 +92,7 @@ function EmpFileTable({ onSelectEmployee }: EmpFileTableProps) {
                         paginatedData.map((employee) => (
                             <tr
                                 key={employee.EmpCode}
-                                className={`cursor-pointer text-subtle-medium bg-white border-b ${selectedEmployee?.EmpCode === employee.EmpCode ? 'bg-light-4' : ''}`}
+                                className={`cursor-pointer text-subtle-medium bg-white border-b ${selectedEmployee?.EmpCode === employee.EmpCode ? 'bg-gray-2' : ''}`}
                                 onClick={() => handleRowClick(employee)}
                             >
                                 <th scope="row" className="flex items-center px-4 py-2 text-gray-900 whitespace-nowrap">
