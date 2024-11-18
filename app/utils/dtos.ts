@@ -1,3 +1,5 @@
+import { Control, UseFormRegister, UseFormSetValue, UseFormWatch } from 'react-hook-form';
+
 export interface NewChartDto {
     EmpCode: string,
     Salary: string,
@@ -101,4 +103,36 @@ export interface GeoStructureItem {
     Description: string;
     ParentID: string;
     ChildID: string;
+}
+
+export interface FormData {
+    EmpCode: string;
+    NameAR: string;
+    NameEN: string;
+    EmpImg: string
+    JobCode: string;
+    JobCategoryCode: number;
+    L1_Hierarchy: string;
+    L2_Hierarchy: string;
+    L3_Hierarchy: string;
+    L1_Geo: string;
+    L2_Geo: string;
+    L3_Geo: string;
+}
+
+export interface BasicInfoProps {
+    control: Control<FormData>;
+    register: any;
+    setValue: UseFormSetValue<FormData>;
+    watch: any;
+}
+
+export interface HierStructerProps {
+    control: Control<FormData>;
+    setValue: UseFormSetValue<FormData>;
+}
+
+export interface GeoStructerProps {
+    control: any;
+    setValue: any;
 }

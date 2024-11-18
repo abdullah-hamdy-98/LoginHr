@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from 'react';
-import { GeoStructureItem } from '@/app/utils/dtos';
+import { Controller } from 'react-hook-form';
+import { GeoStructureItem, GeoStructerProps } from '@/app/utils/dtos';
 
-function GeoStructer() {
+function GeoStructer({ control, setValue }: GeoStructerProps) {
     const [countries, setCountries] = useState<{ value: string; label: string }[]>([]);
     const [governorates, setGovernorates] = useState<{ value: string; label: string }[]>([]);
     const [cities, setCities] = useState<{ value: string; label: string }[]>([]);
     const [selectedCountry, setSelectedCountry] = useState<string | null>(null);
     const [selectedGovernorate, setSelectedGovernorate] = useState<string | null>(null);
-    const [selectedCity, setSelectedCity] = useState<string | null>(null); 
+    const [selectedCity, setSelectedCity] = useState<string | null>(null);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -40,9 +41,9 @@ function GeoStructer() {
                         .map(item => ({ value: item.GeoID, label: item.Description }));
 
                     setGovernorates(governorateOptions);
-                    setCities([]); 
+                    setCities([]);
                     setSelectedGovernorate(null);
-                    setSelectedCity(null); 
+                    setSelectedCity(null);
                 } catch (error) {
                     console.error('Error fetching governorates:', error);
                 }
@@ -74,7 +75,7 @@ function GeoStructer() {
                 }
             } else {
                 setCities([]);
-                setSelectedCity(null); 
+                setSelectedCity(null);
             }
         };
 
@@ -84,48 +85,73 @@ function GeoStructer() {
     return (
         <div className="grid grid-cols-1 grid-rows-3 gap-4 items-center text-center">
             <div className="row-start-1">
-                <select
-                    id="countrySelect"
-                    value={selectedCountry || ''}
-                    onChange={(e) => setSelectedCountry(e.target.value)}
-                    className="border border-dark-3 text-dark-1 text-subtle-medium rounded-md focus:ring-blue focus:border-blue block w-full p-1.5"
-                >
-                    <option value="" disabled>Select Country</option>
-                    {countries.map(country => (
-                        <option key={country.value} value={country.value}>{country.label}</option>
-                    ))}
-                </select>
+                <Controller
+                    name="L1_Geo"
+                    control={control}
+                    render={({ field }) => (
+                        <select
+                            id="countrySelect"
+                            value={field.value || ''}
+                            onChange={(e) => {
+                                field.onChange(e.target.value);
+                                setSelectedCountry(e.target.value);
+                            }}
+                            className="border border-dark-3 text-dark-1 text-subtle-medium rounded-md focus:ring-blue focus:border-blue block w-full p-1.5"
+                        >
+                            <option value="" disabled>Select Country</option>
+                            {countries.map(country => (
+                                <option key={country.value} value={country.value}>{country.label}</option>
+                            ))}
+                        </select>
+                    )}
+                />
             </div>
 
             <div className="row-start-2">
-                <select
-                    id="governorateSelect"
-                    value={selectedGovernorate || ''}
-                    onChange={(e) => {
-                        setSelectedGovernorate(e.target.value);
-                        setSelectedCity(null); // Reset city when governorate changes
-                    }}
-                    className="border border-dark-3 text-dark-1 text-subtle-medium rounded-md focus:ring-blue focus:border-blue block w-full p-1.5"
-                >
-                    <option value="" disabled>Select Governorate</option>
-                    {governorates.map(governorate => (
-                        <option key={governorate.value} value={governorate.value}>{governorate.label}</option>
-                    ))}
-                </select>
+                <Controller
+                    name="L2_Geo"
+                    control={control}
+                    render={({ field }) => (
+                        <select
+                            id="governorateSelect"
+                            value={field.value || ''}
+                            onChange={(e) => {
+                                field.onChange(e.target.value);
+                                setSelectedGovernorate(e.target.value);
+                                setSelectedCity(null); // Reset city when governorate changes
+                            }}
+                            className="border border-dark-3 text-dark-1 text-subtle-medium rounded-md focus:ring-blue focus:border-blue block w-full p-1.5"
+                        >
+                            <option value="" disabled>Select Governorate</option>
+                            {governorates.map(governorate => (
+                                <option key={governorate.value} value={governorate.value}>{governorate.label}</option>
+                            ))}
+                        </select>
+                    )}
+                />
             </div>
 
             <div className="row-start-3">
-                <select
-                    id="citySelect"
-                    value={selectedCity || ''} // Use selectedCity for the value
-                    onChange={(e) => setSelectedCity(e.target.value)} // Update selectedCity
-                    className="border border-dark-3 text-dark-1 text-subtle-medium rounded-md focus:ring-blue focus:border-blue block w-full p-1.5"
-                >
-                    <option value="" disabled>Select City</option>
-                    {cities.map(city => (
-                        <option key={city.value} value={city.value}>{city.label}</option>
-                    ))}
-                </select>
+                <Controller
+                    name="L3_Geo"
+                    control={control}
+                    render={({ field }) => (
+                        <select
+                            id="citySelect"
+                            value={field.value || ''}
+                            onChange={(e) => {
+                                field.onChange(e.target.value);
+                                setSelectedCity(e.target.value);
+                            }}
+                            className="border border-dark-3 text-dark-1 text-subtle-medium rounded-md focus:ring-blue focus:border-blue block w-full p-1.5"
+                        >
+                            <option value="" disabled>Select City</option>
+                            {cities.map(city => (
+                                <option key={city.value} value={city.value}>{city.label}</option>
+                            ))}
+                        </select>
+                    )}
+                />
             </div>
         </div>
     );

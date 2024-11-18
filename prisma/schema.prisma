@@ -8,14 +8,14 @@ datasource db {
 }
 
 model EmpFiles {
-  Id              Int        @id @default(autoincrement())
-  EmpCode         String?     @unique @db.NVarChar(15)
-  NameEN          String     @db.NVarChar(35)
-  NameAR          String?    @db.NVarChar(35)
-  EmpImg          String?    @db.NVarChar(50)
+  Id      Int     @id @default(autoincrement())
+  EmpCode String? @unique @db.NVarChar(15)
+  NameEN  String? @db.NVarChar(35)
+  NameAR  String? @db.NVarChar(35)
+  EmpImg  String? @db.NVarChar(MAX)
 
-  JobCode         String?    @db.NVarChar(3)
-  jobTitle        JobTitles? @relation(fields: [JobCode], references: [JobCode], onDelete: SetNull, onUpdate: NoAction)
+  JobCode  String?    @db.NVarChar(3)
+  jobTitle JobTitles? @relation(fields: [JobCode], references: [JobCode], onDelete: SetNull, onUpdate: NoAction)
 
   JobCategoryCode Int?
   JobCategory     JobCategory? @relation(fields: [JobCategoryCode], references: [JobCategoryCode], onDelete: SetNull, onUpdate: NoAction)

@@ -58,7 +58,7 @@ function EmpFileTable({ onSelectEmployee }: EmpFileTableProps) {
         const isSameEmployee = selectedEmployee?.EmpCode === employee.EmpCode;
         const newSelectedEmployee = isSameEmployee ? null : employee;
         setSelectedEmployee(newSelectedEmployee);
-        onSelectEmployee(newSelectedEmployee); 
+        onSelectEmployee(newSelectedEmployee);
     };
 
     return (

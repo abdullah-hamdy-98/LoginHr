@@ -1,6 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { createEmpFileDto } from '@/app/utils/dtos'
-import { EmpFileSchema } from '@/app/utils/validationSchemas'
 import { EmpFiles } from '@prisma/client'
 import prisma from '@/app/utils/db'
 
@@ -97,10 +96,7 @@ export async function POST(request: NextRequest) {
     try {
         const body = (await request.json()) as createEmpFileDto
 
-        const validation = EmpFileSchema.safeParse(body)
-        if (!validation.success) {
-            return NextResponse.json({ message: validation.error.errors[0] }, { status: 400 })
-        }
+
         const empFile: EmpFiles = await prisma.empFiles.create({
             data: {
                 EmpImg: body.EmpImg,

@@ -143,7 +143,7 @@ module.exports = {
         },
       ],
       "subtle-medium": [
-        "12px",
+        "11px",
         {
           lineHeight: "16px",
           fontWeight: "400",

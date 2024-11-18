@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { HierStructureItem } from '@/app/utils/dtos';
+import { HierStructureItem, HierStructerProps } from '@/app/utils/dtos';
+import { Control, Controller } from 'react-hook-form';
 
-function HierStructer() {
+
+function HierStructer({ control, setValue }: HierStructerProps) {
     const [companies, setCompanies] = useState<{ value: string; label: string }[]>([]);
     const [branches, setBranches] = useState<{ value: string; label: string }[]>([]);
     const [sectors, setSectors] = useState<{ value: string; label: string }[]>([]);
@@ -44,6 +46,7 @@ function HierStructer() {
                     setBranches(filteredBranches);
                     setSectors([]);
                     setSelectedBranch(null);
+                    setValue('L1_Hierarchy', selectedCompany);
                 } catch (error) {
                     console.error('Error fetching branches:', error);
                 }
@@ -51,11 +54,12 @@ function HierStructer() {
                 setBranches([]);
                 setSectors([]);
                 setSelectedBranch(null);
+                setValue('L1_Hierarchy', '');
             }
         };
 
         fetchBranches();
-    }, [selectedCompany]);
+    }, [selectedCompany, setValue]);
 
     useEffect(() => {
         const fetchSectors = async () => {
@@ -71,57 +75,84 @@ function HierStructer() {
                     ));
 
                     setSectors(filteredSectors);
+                    setValue('L2_Hierarchy', selectedBranch);
                 } catch (error) {
                     console.error('Error fetching sectors:', error);
                 }
             } else {
-                setSectors([])
+                setSectors([]);
+                setValue('L2_Hierarchy', '');
             }
         };
 
         fetchSectors();
-    }, [selectedBranch]);
+    }, [selectedBranch, setValue]);
 
     return (
         <div className="grid grid-cols-1 grid-rows-3 gap-4 items-center text-center">
             <div className="row-start-1">
-                <select
-                    id="CompanySelect"
-                    className="border border-dark-3 text-dark-1 text-subtle-medium rounded-md focus:ring-blue focus:border-blue block w-full p-1.5"
-                    onChange={(e) => setSelectedCompany(e.target.value)}
-                    value={selectedCompany || ""}
-                >
-                    <option value="" disabled>Select Company</option>
-                    {companies.map(company => (
-                        <option key={company.value} value={company.value}>{company.label}</option>
-                    ))}
-                </select>
+                <Controller
+                    name="L1_Hierarchy"
+                    control={control}
+                    render={({ field }) => (
+                        <select
+                            {...field}
+                            id="CompanySelect"
+                            className="border border-dark-3 text-dark-1 text-subtle-medium rounded-md focus:ring-blue focus:border-blue block w-full p-1.5"
+                            onChange={(e) => {
+                                setSelectedCompany(e.target.value);
+                                field.onChange(e);  // Trigger form update
+                            }}
+                        >
+                            <option value="" disabled>Select Company</option>
+                            {companies.map(company => (
+                                <option key={company.value} value={company.value}>{company.label}</option>
+                            ))}
+                        </select>
+                    )}
+                />
             </div>
 
             <div className="row-start-2">
-                <select
-                    id="BranchSelect"
-                    className="border border-dark-3 text-dark-1 text-subtle-medium rounded-md focus:ring-blue focus:border-blue block w-full p-1.5"
-                    onChange={(e) => setSelectedBranch(e.target.value)}
-                    value={selectedBranch || ""}
-                >
-                    <option value="" disabled>Select Branch</option>
-                    {branches.map(branch => (
-                        <option key={branch.value} value={branch.value}>{branch.label}</option>
-                    ))}
-                </select>
+                <Controller
+                    name="L2_Hierarchy"
+                    control={control}
+                    render={({ field }) => (
+                        <select
+                            {...field}
+                            id="BranchSelect"
+                            className="border border-dark-3 text-dark-1 text-subtle-medium rounded-md focus:ring-blue focus:border-blue block w-full p-1.5"
+                            onChange={(e) => {
+                                setSelectedBranch(e.target.value);
+                                field.onChange(e);
+                            }}
+                        >
+                            <option value="" disabled>Select Branch</option>
+                            {branches.map(branch => (
+                                <option key={branch.value} value={branch.value}>{branch.label}</option>
+                            ))}
+                        </select>
+                    )}
+                />
             </div>
 
             <div className="row-start-3">
-                <select
-                    id="SectorSelect"
-                    className="border border-dark-3 text-dark-1 text-subtle-medium rounded-md focus:ring-blue focus:border-blue block w-full p-1.5"
-                >
-                    <option value="">Select Sector</option>
-                    {sectors.map(sector => (
-                        <option key={sector.value} value={sector.value}>{sector.label}</option>
-                    ))}
-                </select>
+                <Controller
+                    name="L3_Hierarchy"
+                    control={control}
+                    render={({ field }) => (
+                        <select
+                            {...field}
+                            id="SectorSelect"
+                            className="border border-dark-3 text-dark-1 text-subtle-medium rounded-md focus:ring-blue focus:border-blue block w-full p-1.5"
+                        >
+                            <option value="">Select Sector</option>
+                            {sectors.map(sector => (
+                                <option key={sector.value} value={sector.value}>{sector.label}</option>
+                            ))}
+                        </select>
+                    )}
+                />
             </div>
         </div>
     );

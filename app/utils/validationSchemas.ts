@@ -15,8 +15,4 @@ export const createChartSchema = z.object({
         .max(20, 'Category must not exceed 20 Characters(s)')
 })
 
-export const EmpFileSchema = z.object({
-    NameEN: z.string()
-        .min(8, 'English Name must be at least 8 characters long')
-        .max(30, 'English Name must not exceed 30 characters')
-});
+
